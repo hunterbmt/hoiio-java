@@ -34,6 +34,7 @@ import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
 import com.hoiio.sdk.objects.enums.SmsStatus;
 import com.hoiio.sdk.util.DateUtil;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Sms extends HoiioResponse {
 	
@@ -50,10 +51,10 @@ public class Sms extends HoiioResponse {
 	private String tag;
 	private String dest;
 	private Date date;
-	private int splitCount;
+	private Integer splitCount;
 	private Currency currency;
-	private double rate;
-	private double debit;
+	private Double rate;
+	private Double debit;
 	
 	/**
 	 * Constructs a new {@code Sms} object by decoding the {@code JSONObject} as a response from the HTTP Request 
@@ -62,15 +63,15 @@ public class Sms extends HoiioResponse {
 	public Sms(JSONObject output) throws HoiioException {
 		response = output.toString();
 		
-		smsStatus = SmsStatus.fromString(output.getString(Params.SMS_STATUS.toString()));
-		txnRef = output.getString(Params.TXN_REF.toString());
-		tag = output.getString(Params.TAG.toString());
-		dest = output.getString(Params.DEST.toString());
-		date = DateUtil.stringToDateTime(output.getString(Params.DATE.toString()));
-		splitCount = output.getInt(Params.SPLIT_COUNT.toString());
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
-		rate = output.getDouble(Params.RATE.toString());
-		debit = output.getDouble(Params.DEBIT.toString());
+		smsStatus = SmsStatus.fromString(StringUtil.getStringFromJSON(output, Params.SMS_STATUS.toString()));
+		txnRef = StringUtil.getStringFromJSON(output, Params.TXN_REF.toString());
+		tag = StringUtil.getStringFromJSON(output, Params.TAG.toString());
+		dest = StringUtil.getStringFromJSON(output, Params.DEST.toString());
+		date = DateUtil.stringToDateTime(StringUtil.getStringFromJSON(output, Params.DATE.toString()));
+		splitCount = StringUtil.getIntFromJSON(output, Params.SPLIT_COUNT.toString());
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
+		rate = StringUtil.getDoubleFromJSON(output, Params.RATE.toString());
+		debit = StringUtil.getDoubleFromJSON(output, Params.DEBIT.toString());
 	}
 
 	/**

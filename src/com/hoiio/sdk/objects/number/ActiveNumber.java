@@ -33,6 +33,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.exception.HoiioException;
 import com.hoiio.sdk.objects.HoiioResponse;
+import com.hoiio.sdk.util.StringUtil;
 
 public class ActiveNumber extends HoiioResponse {
 	
@@ -44,7 +45,7 @@ public class ActiveNumber extends HoiioResponse {
 		}
 	}
 	
-	private int pageCount;
+	private Integer pageCount;
 	private List<Number> numberList;
 	
 	/**
@@ -54,7 +55,7 @@ public class ActiveNumber extends HoiioResponse {
 	public ActiveNumber(JSONObject output) throws HoiioException {
 		response = output.toString();
 		
-		pageCount = output.getInt(Params.ENTRIES_COUNT.toString());
+		pageCount = StringUtil.getIntFromJSON(output, Params.ENTRIES_COUNT.toString());
 		numberList = new ArrayList<Number>();
 		
 		JSONArray entries = (JSONArray) output.get(Params.ENTRIES.toString());

@@ -67,6 +67,14 @@ public class FaxService extends HttpService {
 	/**
 	 * Constructs the service to make all Fax requests
 	 * @param appId AppID of the developer
+	 */
+	public FaxService(String appId) {
+		this.appId = appId;
+	}
+	
+	/**
+	 * Constructs the service to make all Fax requests
+	 * @param appId AppID of the developer
 	 * @param accessToken AccessToken of the developer
 	 */
 	public FaxService(String appId, String accessToken) {
@@ -112,8 +120,8 @@ public class FaxService extends HttpService {
 		
 		map.put(Params.FROM.toString(), DateUtil.dateToString(from), false);
 		map.put(Params.TO.toString(), DateUtil.dateToString(to), false);
-		map.put(Params.PAGE.toString(), page.toString(), false);
-		map.put(Params.TYPE.toString(), type.toString(), false);
+		map.put(Params.PAGE.toString(), page, false);
+		map.put(Params.TYPE.toString(), type, false);
 		
 		return new FaxHistory(doHttpPost(URL_FAX_GET_HISTORY, map));
 	}

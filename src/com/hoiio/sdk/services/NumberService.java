@@ -61,6 +61,14 @@ public class NumberService extends HttpService {
 	/**
 	 * Constructs the service to make all Number requests
 	 * @param appId AppID of the developer
+	 */
+	public NumberService(String appId) {
+		this.appId = appId;
+	}
+	
+	/**
+	 * Constructs the service to make all Number requests
+	 * @param appId AppID of the developer
 	 * @param accessToken AccessToken of the developer
 	 */
 	public NumberService(String appId, String accessToken) {
@@ -187,7 +195,7 @@ public class NumberService extends HttpService {
 		map.put(Params.NUMBER.toString(), number, true);
 		map.put(Params.FORWARD_TO.toString(), forwardTo, false);
 		map.put(Params.FORWARD_TO_SMS.toString(), forwardToSms, false);
-		map.put(Params.MODE.toString(), mode.toString(), false);
+		map.put(Params.MODE.toString(), mode, false);
 		
 		return new UpdateForwarding(doHttpPost(URL_NUMBER_UPDATE_FORWARDING, map));
 	}

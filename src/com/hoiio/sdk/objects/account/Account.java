@@ -29,11 +29,12 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Account extends HoiioResponse {
 	
 	private static enum Params {
-		UID, NAME, MOBILE_NUMBER, EMAIL, COUNTRY, PREFIX, CURRENCY;
+		UID, NAME, MOBILE_NUMBER, EMAIL, COUNTRY, PREFIX, TIMEZONE, CURRENCY;
 		
 		public String toString() {
 			return this.name().toLowerCase();
@@ -46,6 +47,7 @@ public class Account extends HoiioResponse {
 	private String email;
 	private String country;
 	private String prefix;
+	private String timezone;
 	private Currency currency;
 	
 	/**
@@ -55,15 +57,16 @@ public class Account extends HoiioResponse {
 	public Account(JSONObject output) {
 		response = output.toString();
 		
-		uid = output.getString(Params.UID.toString());
-		name = output.getString(Params.NAME.toString());
-		mobileNumber = output.getString(Params.MOBILE_NUMBER.toString());
-		country = output.getString(Params.COUNTRY.toString());
-		prefix = output.getString(Params.PREFIX.toString());
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
+		uid = StringUtil.getStringFromJSON(output, Params.UID.toString());
+		name = StringUtil.getStringFromJSON(output, Params.NAME.toString());
+		mobileNumber = StringUtil.getStringFromJSON(output, Params.MOBILE_NUMBER.toString());
+		country = StringUtil.getStringFromJSON(output, Params.COUNTRY.toString());
+		prefix = StringUtil.getStringFromJSON(output, Params.PREFIX.toString());
+		timezone = StringUtil.getStringFromJSON(output, Params.TIMEZONE.toString());
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
 		
 		if (output.containsKey(Params.EMAIL.toString())) {
-			email = output.getString(Params.EMAIL.toString());
+			email = StringUtil.getStringFromJSON(output, Params.EMAIL.toString());
 		}
 	}
 
@@ -113,6 +116,18 @@ public class Account extends HoiioResponse {
 	 */
 	public String getPrefix() {
 		return prefix;
+	}
+
+	/**
+	 * Gets the time zone of this account
+	 * @return The time zone of this account (e.g. GMT+0700VN)
+	 */
+	public String getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
 	}
 
 	/**

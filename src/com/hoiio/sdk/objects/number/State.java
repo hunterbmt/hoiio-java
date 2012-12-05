@@ -32,6 +32,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.enums.NumberCapability;
+import com.hoiio.sdk.util.StringUtil;
 
 public class State {
 	
@@ -52,8 +53,8 @@ public class State {
 	 * @param output The response of the HTTP Request
 	 */
 	public State(JSONObject output) {
-		name = output.getString(Params.NAME.toString());
-		code = output.getString(Params.CODE.toString());
+		name = StringUtil.getStringFromJSON(output, Params.NAME.toString());
+		code = StringUtil.getStringFromJSON(output, Params.CODE.toString());
 		capability = new ArrayList<NumberCapability>();
 		
 		JSONArray capabilities = (JSONArray) output.get(Params.CAPABILITY.toString());

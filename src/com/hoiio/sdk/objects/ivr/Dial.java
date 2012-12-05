@@ -28,6 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Dial extends HoiioResponse {
 	
@@ -49,8 +50,8 @@ public class Dial extends HoiioResponse {
 	public Dial(JSONObject output) {
 		response = output.toString();
 		
-		session = output.getString(Params.SESSION.toString());
-		txnRef = output.getString(Params.TXN_REF.toString());
+		session = StringUtil.getStringFromJSON(output, Params.SESSION.toString());
+		txnRef = StringUtil.getStringFromJSON(output, Params.TXN_REF.toString());
 	}
 
 	/**

@@ -33,6 +33,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.exception.HoiioException;
 import com.hoiio.sdk.objects.HoiioResponse;
+import com.hoiio.sdk.util.StringUtil;
 
 public class CallHistory extends HoiioResponse {
 	
@@ -44,8 +45,8 @@ public class CallHistory extends HoiioResponse {
 		}
 	}
 		
-	private int pageCount;
-	private int totalCount;
+	private Integer pageCount;
+	private Integer totalCount;
 	private List<Call> callList;
 	
 	/**
@@ -55,8 +56,8 @@ public class CallHistory extends HoiioResponse {
 	public CallHistory(JSONObject output) throws HoiioException {
 		response = output.toString();
 		
-		pageCount = output.getInt(Params.ENTRIES_COUNT.toString());
-		totalCount = output.getInt(Params.TOTAL_ENTRIES_COUNT.toString());
+		pageCount = StringUtil.getIntFromJSON(output, Params.ENTRIES_COUNT.toString());
+		totalCount = StringUtil.getIntFromJSON(output, Params.TOTAL_ENTRIES_COUNT.toString());
 
 		callList = new ArrayList<Call>();
 		

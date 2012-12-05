@@ -33,6 +33,7 @@ import com.hoiio.sdk.exception.HoiioException;
 import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
 import com.hoiio.sdk.util.DateUtil;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Subscribe extends HoiioResponse {
 	
@@ -45,7 +46,7 @@ public class Subscribe extends HoiioResponse {
 	}
 	
 	private Currency currency;
-	private double debit;
+	private Double debit;
 	private Date expiry;
 	
 	/**
@@ -55,9 +56,9 @@ public class Subscribe extends HoiioResponse {
 	public Subscribe(JSONObject output) throws HoiioException {
 		response = output.toString();
 		
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
-		debit = output.getDouble(Params.DEBIT.toString());
-		expiry = DateUtil.stringToDateTime(output.getString(Params.EXPIRY.toString()));
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
+		debit = StringUtil.getDoubleFromJSON(output, Params.DEBIT.toString());
+		expiry = DateUtil.stringToDateTime(StringUtil.getStringFromJSON(output, Params.EXPIRY.toString()));
 	}
 
 	/**

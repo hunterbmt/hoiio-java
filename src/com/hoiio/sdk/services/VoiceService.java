@@ -64,7 +64,15 @@ public class VoiceService extends HttpService {
 	private static final String URL_VOICE_QUERY_STATUS = "voice/query_status";
 	private static final String URL_VOICE_CONFERENCE = "voice/conference";
 	private static final String URL_VOICE_HANGUP = "voice/hangup";
-		
+	
+	/**
+	 * Constructs the service to make all Voice requests
+	 * @param appId AppID of the developer
+	 */
+	public VoiceService(String appId) {
+		this.appId = appId;
+	}
+	
 	/**
 	 * Constructs the service to make all Voice requests
 	 * @param appId AppID of the developer
@@ -173,7 +181,7 @@ public class VoiceService extends HttpService {
 		
 		map.put(Params.FROM.toString(), DateUtil.dateToString(from), false);
 		map.put(Params.TO.toString(), DateUtil.dateToString(to), false);
-		map.put(Params.PAGE.toString(), page.toString(), false);
+		map.put(Params.PAGE.toString(), page, false);
 		
 		return new CallHistory(doHttpPost(URL_VOICE_GET_HISTORY, map));
 	}

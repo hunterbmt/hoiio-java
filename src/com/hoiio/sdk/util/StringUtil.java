@@ -30,6 +30,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
@@ -76,5 +79,61 @@ public class StringUtil {
 	 */
 	public static boolean isEmpty(String str) {
 		return (str == null || str.isEmpty());
+	}
+	
+	/**
+	 * Get the {@code Integer} value from a {@code JSONObject}
+	 * @param output the {@code JSONObject}
+	 * @param param the parameter of the entry inside that object
+	 * @return The Double value if the {@code param}is present, if not return null
+	 */
+	public static Integer getIntFromJSON(JSONObject output, String param) {
+		try {
+			return output.getInt(param);
+		} catch (JSONException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Get the {@code Double} value from a {@code JSONObject}
+	 * @param output the {@code JSONObject}
+	 * @param param the parameter of the entry inside that object
+	 * @return The Double value if the {@code param}is present, if not return null
+	 */
+	public static Double getDoubleFromJSON(JSONObject output, String param) {
+		try {
+			return output.getDouble(param);
+		} catch (JSONException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Get the {@code String} value from a {@code JSONObject}
+	 * @param output the {@code JSONObject}
+	 * @param param the parameter of the entry inside that object
+	 * @return The Double value if the {@code param}is present, if not return null
+	 */
+	public static String getStringFromJSON(JSONObject output, String param) {
+		try {
+			return output.getString(param);
+		} catch (JSONException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Get the {@code Boolean} value from a {@code JSONObject}
+	 * @param output the {@code JSONObject}
+	 * @param param the parameter of the entry inside that object
+	 * @return The Double value if the {@code param}is present, if not return null
+	 */
+	public static Boolean getBooleanFromJSON(JSONObject output, String param) {
+		try {
+			return output.getBoolean(param);
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 }

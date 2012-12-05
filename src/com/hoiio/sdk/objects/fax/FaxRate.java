@@ -29,6 +29,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
+import com.hoiio.sdk.util.StringUtil;
 
 public class FaxRate extends HoiioResponse {
 	
@@ -41,7 +42,7 @@ public class FaxRate extends HoiioResponse {
 	}
 	
 	private Currency currency;
-	private double rate;
+	private Double rate;
 	
 	/**
 	 * Constructs a new {@code FaxRate} object by decoding the {@code JSONObject} as a response from the HTTP Request 
@@ -50,8 +51,8 @@ public class FaxRate extends HoiioResponse {
 	public FaxRate(JSONObject output) {
 		response = output.toString();
 		
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
-		rate = output.getDouble(Params.RATE.toString());
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
+		rate = StringUtil.getDoubleFromJSON(output, Params.RATE.toString());
 	}
 	
 	/**

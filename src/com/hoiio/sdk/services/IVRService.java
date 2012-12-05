@@ -29,7 +29,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.exception.HoiioException;
 import com.hoiio.sdk.objects.HoiioRequest;
-import com.hoiio.sdk.objects.enums.TransferOnFailture;
+import com.hoiio.sdk.objects.enums.TransferOnFailure;
 import com.hoiio.sdk.objects.ivr.Dial;
 import com.hoiio.sdk.objects.ivr.Gather;
 import com.hoiio.sdk.objects.ivr.Hangup;
@@ -62,6 +62,14 @@ public class IvrService extends HttpService {
 	private static final String URL_IVR_RECORD = "ivr/middle/record";
 	private static final String URL_IVR_TRANSFER = "ivr/end/transfer";
 	private static final String URL_IVR_HANGUP = "ivr/end/hangup";
+	
+	/**
+	 * Constructs the service to make all IVR requests
+	 * @param appId AppID of the developer
+	 */
+	public IvrService(String appId) {
+		this.appId = appId;
+	}
 	
 	/**
 	 * Constructs the service to make all IVR requests
@@ -304,7 +312,7 @@ public class IvrService extends HttpService {
 	 * @throws HoiioException
 	 */
 	public Transfer transfer(String session, String dest, String msg, String callerID,  
-			TransferOnFailture onFailure, String tag, String notifyUrl) throws HoiioException {
+			TransferOnFailure onFailure, String tag, String notifyUrl) throws HoiioException {
 		HoiioRequest map = new HoiioRequest();
 		
 		map.put(Params.SESSION.toString(), session, true);
@@ -313,7 +321,7 @@ public class IvrService extends HttpService {
 		map.put(Params.MSG.toString(), msg, false);
 		map.put(Params.TAG.toString(), tag, false);
 		map.put(Params.CALLER_ID.toString(), callerID, false);
-		map.put(Params.ON_FAILURE.toString(), onFailure.toString(), false);
+		map.put(Params.ON_FAILURE.toString(), onFailure, false);
 		
 		return new Transfer(doHttpPost(URL_IVR_TRANSFER, map));
 	}	

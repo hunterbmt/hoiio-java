@@ -32,6 +32,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
+import com.hoiio.sdk.util.StringUtil;
 
 public class SupportedCountry extends HoiioResponse {
 	
@@ -43,7 +44,7 @@ public class SupportedCountry extends HoiioResponse {
 		}
 	}
 	
-	private int count;
+	private Integer count;
 	private List<Country> countryList;
 	
 	/**
@@ -53,7 +54,7 @@ public class SupportedCountry extends HoiioResponse {
 	public SupportedCountry(JSONObject output) {
 		response = output.toString();
 		
-		count = output.getInt(Params.ENTRIES_COUNT.toString());
+		count = StringUtil.getIntFromJSON(output, Params.ENTRIES_COUNT.toString());
 		countryList = new ArrayList<Country>();
 		
 		JSONArray entries = (JSONArray) output.get(Params.ENTRIES.toString());

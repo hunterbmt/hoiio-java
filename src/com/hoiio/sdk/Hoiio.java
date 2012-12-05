@@ -42,7 +42,20 @@ public class Hoiio {
 	private AccountService accountService;
 
 	/**
-	 * Initiates Hoiio Service
+	 * Initiates Hoiio Service with the application ID 
+	 * @param appId AppID of the developer
+	 */
+	public Hoiio(String appId) {
+		voiceService = new VoiceService(appId);
+		smsService = new SmsService(appId);
+		ivrService = new IvrService(appId);
+		numberService = new NumberService(appId);
+		faxService = new FaxService(appId);
+		accountService = new AccountService(appId);
+	}
+	
+	/**
+	 * Initiates Hoiio Service with the application ID and the access token
 	 * @param appId AppID of the developer
 	 * @param accessToken AccessToken of the developer
 	 */
@@ -102,4 +115,27 @@ public class Hoiio {
 	public AccountService getAccountService() {
 		return accountService;
 	}
+	
+	/**
+	 * Set the access token for API request
+	 * @param accessToken Access Token of the user
+	 */
+	public void setAccessToken(String accessToken) {
+		voiceService.setAccessToken(accessToken);
+		smsService.setAccessToken(accessToken);
+		ivrService.setAccessToken(accessToken);
+		numberService.setAccessToken(accessToken);
+		faxService.setAccessToken(accessToken);
+		accountService.setAccessToken(accessToken);
+	}
+	
+	public void setBaseUrl(String baseUrl) {
+		voiceService.setBaseUrl(baseUrl);
+		smsService.setBaseUrl(baseUrl);
+		ivrService.setBaseUrl(baseUrl);
+		numberService.setBaseUrl(baseUrl);
+		faxService.setBaseUrl(baseUrl);
+		accountService.setBaseUrl(baseUrl);
+	}
+	
 }

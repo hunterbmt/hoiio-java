@@ -51,7 +51,6 @@ public class HttpService {
 			return this.name().toLowerCase();
 		}
 	}
-	private static final String API_BASE_URL = "https://secure.hoiio.com/open/";
 	
 	protected static final String INTERNAL_SERVER_EXCEPTION = "error_internal_server_error";
 	
@@ -60,6 +59,7 @@ public class HttpService {
 	
 	protected String appId;
 	protected String accessToken;
+	protected String baseUrl = "https://secure.hoiio.com/open/";
 	
 	/**
 	 * Makes a HTTP request to Hoiio
@@ -69,15 +69,13 @@ public class HttpService {
 	 * @throws HoiioException
 	 */
 	protected JSONObject doHttpPost(String urlString, HoiioRequest map) throws HoiioException {
-		
-		String output = "";
-		
+				
 		HttpURLConnection urlConn = null;
 		
 		map.putAll(initParam());
 		
 		try {
-			URL url = new URL(API_BASE_URL + urlString);
+			URL url = new URL(baseUrl + urlString);
 			urlConn = (HttpURLConnection) url.openConnection();
 			urlConn.setDoInput(true);
 			urlConn.setDoOutput(true);
@@ -86,7 +84,7 @@ public class HttpService {
 			
 			String content = StringUtil.convertMapToUrlEncodedString(map);
 			
-			output = doHttpURLConnectionPost(urlConn, content);
+			String output = doHttpURLConnectionPost(urlConn, content);
 
 			JSONObject json = JSONObject.fromObject(output);
 			
@@ -189,5 +187,17 @@ public class HttpService {
 			}
 		}
 		return output;
+	}
+	
+	/**
+	 * Set the access token for making API request
+	 * @param accessToken Access token of the user
+	 */
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+	
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
 	}
 }

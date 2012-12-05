@@ -25,24 +25,15 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
-import java.util.HashMap;
-import java.util.Map;
+public enum TransferOnFailure {
 
-public enum Currency {
-
-	SGD("SGD"),
-	HKD("HKD"),
-	USD("USD"),
-	AUD("AUD"),
-	MYR("MYR"),
-	TWD("TWD");
+	HANGUP("hangup"),
+	CONTINUE("continue");
 	
-	private static final Map<String, Currency> lookup = new HashMap<String, Currency>();
+	private String action;
 	
-	private String currency;
-	
-	private Currency(String currency) {
-		this.currency = currency;
+	private TransferOnFailure(String action) {
+		this.action = action;
 	}
 	
 	/**
@@ -50,22 +41,6 @@ public enum Currency {
 	 * @return string representation of the object
 	 */
 	public String toString() {
-		return currency;
+		return action;
 	}
-	
-	static {
-		for (Currency s : Currency.values()) {
-			lookup.put(s.toString(), s);
-		}
-	}
-	
-	/**
-	 * Converts the string to {@code Currency} object
-	 * @param currency The currency in string
-	 * @return {@code Currency} object
-	 */	
-	public static Currency fromString(String currency) {
-		return lookup.get(currency);
-	}
-	
 }

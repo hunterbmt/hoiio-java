@@ -32,6 +32,7 @@ import net.sf.json.JSONObject;
 import com.hoiio.sdk.exception.HoiioException;
 import com.hoiio.sdk.objects.enums.AutoExtendStatus;
 import com.hoiio.sdk.util.DateUtil;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Number {
 	
@@ -57,14 +58,14 @@ public class Number {
 	 * @param output The response of the HTTP Request
 	 */
 	public Number(JSONObject output) throws HoiioException {
-		number = output.toString();
-		forwardTo = output.getString(Params.FORWARD_TO.toString());
-		forwardToSms = output.getString(Params.FORWARD_SMS_TO.toString());
-		expiry = DateUtil.stringToDate(output.getString(Params.EXPIRY.toString()));
-		autoExtendStatus = AutoExtendStatus.fromString(output.getString(Params.AUTO_EXTEND_STATUS.toString()));
-		country = output.getString(Params.COUNTRY.toString());
-		state = output.getString(Params.STATE.toString());
-		mode = output.getString(Params.MODE.toString());
+		number = StringUtil.getStringFromJSON(output, Params.NUMBER.toString());
+		forwardTo = StringUtil.getStringFromJSON(output, Params.FORWARD_TO.toString());
+		forwardToSms = StringUtil.getStringFromJSON(output, Params.FORWARD_SMS_TO.toString());
+		expiry = DateUtil.stringToDate(StringUtil.getStringFromJSON(output, Params.EXPIRY.toString()));
+		autoExtendStatus = AutoExtendStatus.fromString(StringUtil.getStringFromJSON(output, Params.AUTO_EXTEND_STATUS.toString()));
+		country = StringUtil.getStringFromJSON(output, Params.COUNTRY.toString());
+		state = StringUtil.getStringFromJSON(output, Params.STATE.toString());
+		mode = StringUtil.getStringFromJSON(output, Params.MODE.toString());
 	}
 
 	/**

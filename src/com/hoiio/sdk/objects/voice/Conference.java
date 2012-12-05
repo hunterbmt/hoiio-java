@@ -28,6 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Conference extends HoiioResponse {
 
@@ -44,8 +45,8 @@ public class Conference extends HoiioResponse {
 	public Conference(JSONObject output) {
 		response = output.toString();
 		
-		txnRefs = output.getString(TXN_REFS);
-		room = output.getString(ROOM);		
+		txnRefs = StringUtil.getStringFromJSON(output, TXN_REFS);
+		room = StringUtil.getStringFromJSON(output, ROOM);		
 	}
 
 	/**

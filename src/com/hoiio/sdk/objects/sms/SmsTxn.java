@@ -28,6 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
+import com.hoiio.sdk.util.StringUtil;
 
 public class SmsTxn extends HoiioResponse {
 	
@@ -48,7 +49,7 @@ public class SmsTxn extends HoiioResponse {
 	public SmsTxn(JSONObject output) {
 		response = output.toString();
 		
-		txnRef = output.getString(Params.TXN_REF.toString());		
+		txnRef = StringUtil.getStringFromJSON(output, Params.TXN_REF.toString());		
 	}
 	
 	/**

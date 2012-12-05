@@ -33,6 +33,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
+import com.hoiio.sdk.util.StringUtil;
 
 public class NumberRate extends HoiioResponse {
 	
@@ -45,7 +46,7 @@ public class NumberRate extends HoiioResponse {
 	}
 	
 	private Currency currency;
-	private int count;
+	private Integer count;
 	private List<Rate> rateList;
 	
 	/**
@@ -55,8 +56,8 @@ public class NumberRate extends HoiioResponse {
 	public NumberRate(JSONObject output) {
 		response = output.toString();
 		
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
-		count = output.getInt(Params.ENTRIES_COUNT.toString());
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
+		count = StringUtil.getIntFromJSON(output, Params.ENTRIES_COUNT.toString());
 		rateList = new ArrayList<Rate>();
 		
 		JSONArray entries = (JSONArray) output.get(Params.ENTRIES.toString());

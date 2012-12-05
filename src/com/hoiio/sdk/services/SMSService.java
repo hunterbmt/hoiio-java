@@ -61,7 +61,15 @@ public class SmsService extends HttpService {
 	private static final String URL_SMS_QUERY_STATUS = "sms/query_status";
 
 	/**
-	 * Constructs the service to make all Sms requests
+	 * Constructs the service to make all SMS requests
+	 * @param appId AppID of the developer
+	 */
+	public SmsService(String appId) {
+		this.appId = appId;
+	}
+	
+	/**
+	 * Constructs the service to make all SMS requests
 	 * @param appId AppID of the developer
 	 * @param accessToken AccessToken of the developer
 	 */
@@ -93,7 +101,7 @@ public class SmsService extends HttpService {
 				
 		map.put(Params.FROM.toString(), DateUtil.dateToString(from), false);
 		map.put(Params.TO.toString(), DateUtil.dateToString(to), false);
-		map.put(Params.PAGE.toString(), page.toString(), false);
+		map.put(Params.PAGE.toString(), page, false);
 				
 		return new SmsHistory(doHttpPost(URL_SMS_GET_HISTORY, map));
 	}

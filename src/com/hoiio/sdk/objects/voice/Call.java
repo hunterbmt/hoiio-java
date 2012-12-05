@@ -34,12 +34,13 @@ import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.CallStatus;
 import com.hoiio.sdk.objects.enums.Currency;
 import com.hoiio.sdk.util.DateUtil;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Call extends HoiioResponse {
 	
 	private static enum Params {
-		TXN_REF, TAG, DEST1, DEST2, CALL_STATUS_DEST_1, RATE,
-		CALL_STATUS_DEST_2, DATE, DURATION, CURRENCY, DEBIT;
+		TXN_REF, TAG, DEST1, DEST2, CALL_STATUS_DEST1, RATE,
+		CALL_STATUS_DEST2, DATE, DURATION, CURRENCY, DEBIT;
 		
 		public String toString() {
 			return this.name().toLowerCase();
@@ -53,10 +54,10 @@ public class Call extends HoiioResponse {
 	private CallStatus callStatusDest1;
 	private CallStatus callStatusDest2;
 	private Date date;
-	private int duration;
+	private Integer duration;
 	private Currency currency;
-	private double rate;
-	private double debit;
+	private Double rate;
+	private Double debit;
 	
 	/**
 	 * Constructs a new {@code Call} object by decoding the {@code JSONObject} as a response from the HTTP Request 
@@ -65,15 +66,15 @@ public class Call extends HoiioResponse {
 	public Call(JSONObject output) throws HoiioException {
 		response = output.toString();
 		
-		txnRef = output.getString(Params.TXN_REF.toString());
-		tag = output.getString(Params.TAG.toString());
-		dest1 = output.getString(Params.DEST1.toString());
-		dest2 = output.getString(Params.DEST2.toString());
-		callStatusDest1 = CallStatus.fromString(output.getString(Params.CALL_STATUS_DEST_1.toString()));
-		callStatusDest2 = CallStatus.fromString(output.getString(Params.CALL_STATUS_DEST_2.toString()));
-		date = DateUtil.stringToDateTime(output.getString(Params.DATE.toString()));
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
-		rate = output.getDouble(Params.RATE.toString());
+		txnRef = StringUtil.getStringFromJSON(output, Params.TXN_REF.toString());
+		tag = StringUtil.getStringFromJSON(output, Params.TAG.toString());
+		dest1 = StringUtil.getStringFromJSON(output, Params.DEST1.toString());
+		dest2 = StringUtil.getStringFromJSON(output, Params.DEST2.toString());
+		callStatusDest1 = CallStatus.fromString(StringUtil.getStringFromJSON(output, Params.CALL_STATUS_DEST1.toString()));
+		callStatusDest2 = CallStatus.fromString(StringUtil.getStringFromJSON(output, Params.CALL_STATUS_DEST2.toString()));
+		date = DateUtil.stringToDateTime(StringUtil.getStringFromJSON(output, Params.DATE.toString()));
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
+		rate = StringUtil.getDoubleFromJSON(output, Params.RATE.toString());
 		
 		// When a call is still ongoing, the duration and debit are not returned.
 		if (!callStatusDest1.toString().equals(CallStatus.ONGOING.toString())) {
@@ -116,7 +117,7 @@ public class Call extends HoiioResponse {
 
 	/**
 	 * Gets the total amount billed for this transaction
-	 * @return Total amount billed for this transaction. If the call is still ongoing, this parameter will not be provided.
+	 * @return Total amount billed for this transaction. If the call is still ongoing, this parameter will be returned as null.
 	 */
 	public double getDebit() {
 		return debit;
@@ -140,7 +141,7 @@ public class Call extends HoiioResponse {
 
 	/**
 	 * Gets the duration of the call in minutes
-	 * @return Duration of the call in minutes. If the call is still ongoing, this parameter will not be provided.
+	 * @return Duration of the call in minutes. If the call is still ongoing, this parameter will be returned as null.
 	 */
 	public int getDuration() {
 		return duration;

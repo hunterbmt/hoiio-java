@@ -29,6 +29,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Balance extends HoiioResponse {
 	
@@ -41,9 +42,9 @@ public class Balance extends HoiioResponse {
 	}
 	
 	private Currency currency;
-	private double balance;
-	private double points;
-	private double bonus;
+	private Double balance;
+	private Double points;
+	private Double bonus;
 	
 	/**
 	 * Constructs a new {@code Balance} object by decoding the {@code JSONObject} as a response from the HTTP Request 
@@ -52,7 +53,7 @@ public class Balance extends HoiioResponse {
 	public Balance(JSONObject output) {
 		response = output.toString();
 		
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
 		balance = output.getDouble(Params.BALANCE.toString());
 		points = output.getDouble(Params.POINTS.toString());
 		bonus = output.getDouble(Params.BONUS.toString());

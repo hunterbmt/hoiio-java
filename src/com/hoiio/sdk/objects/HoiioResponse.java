@@ -1,5 +1,6 @@
 package com.hoiio.sdk.objects;
 
+
 /*
 Copyright (C) 2012 Hoiio Pte Ltd (http://www.hoiio.com)
 

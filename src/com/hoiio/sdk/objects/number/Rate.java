@@ -25,6 +25,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
+import com.hoiio.sdk.util.StringUtil;
+
 import net.sf.json.JSONObject;
 
 public class Rate {
@@ -37,16 +39,16 @@ public class Rate {
 		}
 	}
 	
-	private int duration;
-	private double rate;
+	private Integer duration;
+	private Double rate;
 	
 	/**
 	 * Constructs a new {@code Rate} object by decoding the {@code JSONObject} as a response from the HTTP Request 
 	 * @param output The response of the HTTP Request
 	 */
 	public Rate(JSONObject output) {
-		duration = output.getInt(Params.DURATION.toString());
-		rate = output.getDouble(Params.RATE.toString());
+		duration = StringUtil.getIntFromJSON(output, Params.DURATION.toString());
+		rate = StringUtil.getDoubleFromJSON(output, Params.RATE.toString());
 	}
 
 	/**

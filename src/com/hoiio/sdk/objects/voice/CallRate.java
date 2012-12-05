@@ -29,6 +29,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
+import com.hoiio.sdk.util.StringUtil;
 
 public class CallRate extends HoiioResponse {
 
@@ -37,8 +38,8 @@ public class CallRate extends HoiioResponse {
 	private static final String TALK_TIME = "talktime";
 	
 	private Currency currency;
-	private double rate;
-	private int talkTime;
+	private Double rate;
+	private Integer talkTime;
 	
 	/**
 	 * Constructs a new {@code CallRate} object by decoding the {@code JSONObject} as a response from the HTTP Request 
@@ -47,9 +48,9 @@ public class CallRate extends HoiioResponse {
 	public CallRate(JSONObject output) {
 		response = output.toString();
 		
-		currency = Currency.fromString(output.getString(CURRENCY));
-		rate = output.getDouble(RATE);
-		talkTime = output.getInt(TALK_TIME);		
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, CURRENCY));
+		rate = StringUtil.getDoubleFromJSON(output, RATE);
+		talkTime = StringUtil.getIntFromJSON(output, TALK_TIME);		
 	}
 	
 	/**

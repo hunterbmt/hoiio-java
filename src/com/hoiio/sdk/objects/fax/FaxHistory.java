@@ -33,6 +33,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.exception.HoiioException;
 import com.hoiio.sdk.objects.HoiioResponse;
+import com.hoiio.sdk.util.StringUtil;
 
 public class FaxHistory extends HoiioResponse {
 	
@@ -44,8 +45,8 @@ public class FaxHistory extends HoiioResponse {
 		}
 	}
 	
-	private int pageCount;
-	private int totalCount;
+	private Integer pageCount;
+	private Integer totalCount;
 	private List<Fax> faxList;
 	
 	/**
@@ -56,8 +57,8 @@ public class FaxHistory extends HoiioResponse {
 	public FaxHistory(JSONObject output) throws HoiioException {
 		response = output.toString();
 		
-		pageCount = output.getInt(Params.ENTRIES_COUNT.toString());
-		totalCount = output.getInt(Params.TOTAL_ENTRIES_COUNT.toString());
+		pageCount = StringUtil.getIntFromJSON(output, Params.ENTRIES_COUNT.toString());
+		totalCount = StringUtil.getIntFromJSON(output, Params.TOTAL_ENTRIES_COUNT.toString());
 		faxList = new ArrayList<Fax>();
 		
 		JSONArray entries = (JSONArray) output.get(Params.ENTRIES.toString());

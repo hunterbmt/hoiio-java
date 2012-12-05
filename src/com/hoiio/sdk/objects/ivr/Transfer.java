@@ -28,6 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Transfer extends HoiioResponse {
 	
@@ -49,7 +50,7 @@ public class Transfer extends HoiioResponse {
 		response = output.toString();
 		
 		if (output.containsKey(Params.ROOM.toString())) {
-			room = output.getString(Params.ROOM.toString());
+			room = StringUtil.getStringFromJSON(output, Params.ROOM.toString());
 		}
 	}
 

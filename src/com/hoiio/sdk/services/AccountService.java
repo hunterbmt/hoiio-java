@@ -43,6 +43,14 @@ public class AccountService extends HttpService {
 	/**
 	 * Constructs the service to make all Account requests
 	 * @param appId AppID of the developer
+	 */
+	public AccountService(String appId) {
+		this.appId = appId;
+	}
+	
+	/**
+	 * Constructs the service to make all Account requests
+	 * @param appId AppID of the developer
 	 * @param accessToken AccessToken of the developer
 	 */
 	public AccountService(String appId, String accessToken) {

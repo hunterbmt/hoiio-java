@@ -31,6 +31,8 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.hoiio.sdk.util.StringUtil;
+
 public class Country {
 	
 	private static enum Params {
@@ -51,14 +53,16 @@ public class Country {
 	 * @param output The response of the HTTP Request
 	 */
 	public Country(JSONObject output) {
-		code = output.getString(Params.CODE.toString());
-		name = output.getString(Params.NAME.toString());
-		prefix = output.getString(Params.PREFIX.toString());
+		code = StringUtil.getStringFromJSON(output, Params.CODE.toString());
+		name = StringUtil.getStringFromJSON(output, Params.NAME.toString());
+		prefix = StringUtil.getStringFromJSON(output, Params.PREFIX.toString());
 		stateList = new ArrayList<State>();
 		
 		JSONArray states = (JSONArray) output.get(Params.STATES.toString());
-		for (int i = 0; i < states.size(); i++) {
-			stateList.add(new State(states.getJSONObject(i)));
+		if (states != null) {
+			for (int i = 0; i < states.size(); i++) {
+				stateList.add(new State(states.getJSONObject(i)));
+			}
 		}
 	}
 

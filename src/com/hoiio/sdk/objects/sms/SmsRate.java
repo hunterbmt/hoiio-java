@@ -29,6 +29,7 @@ import net.sf.json.JSONObject;
 
 import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
+import com.hoiio.sdk.util.StringUtil;
 
 public class SmsRate extends HoiioResponse {
 	
@@ -41,7 +42,7 @@ public class SmsRate extends HoiioResponse {
 	}
 	
 	private Currency currency;
-	private double rate;
+	private Double rate;
 	private Integer splitCount;
 	private Double totalCost;
 	private Boolean isUnicode;
@@ -53,19 +54,19 @@ public class SmsRate extends HoiioResponse {
 	public SmsRate(JSONObject output) {
 		response = output.toString();
 		
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
-		rate = output.getDouble(Params.RATE.toString());
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
+		rate = StringUtil.getDoubleFromJSON(output, Params.RATE.toString());
 		
 		if (output.containsKey(Params.SPLIT_COUNT.toString())) {
-			splitCount = output.getInt(Params.SPLIT_COUNT.toString());
+			splitCount = StringUtil.getIntFromJSON(output, Params.SPLIT_COUNT.toString());
 		}
 		
 		if (output.containsKey(Params.TOTAL_COST.toString())) {
-			totalCost = output.getDouble(Params.TOTAL_COST.toString());
+			totalCost = StringUtil.getDoubleFromJSON(output, Params.TOTAL_COST.toString());
 		}
 		
 		if (output.containsKey(Params.IS_UNICODE.toString())) {
-			isUnicode = output.getBoolean(Params.IS_UNICODE.toString());
+			isUnicode = StringUtil.getBooleanFromJSON(output, Params.IS_UNICODE.toString());
 		}		
 	}
 

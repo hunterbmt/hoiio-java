@@ -34,6 +34,7 @@ import com.hoiio.sdk.objects.HoiioResponse;
 import com.hoiio.sdk.objects.enums.Currency;
 import com.hoiio.sdk.objects.enums.FaxStatus;
 import com.hoiio.sdk.util.DateUtil;
+import com.hoiio.sdk.util.StringUtil;
 
 public class Fax extends HoiioResponse {
 	
@@ -51,12 +52,12 @@ public class Fax extends HoiioResponse {
 	private String src;
 	private String dest;
 	private FaxStatus faxStatus;
-	private int faxPages;
+	private Integer faxPages;
 	private String faxUrl;
 	private Date date;
 	private Currency currency;
-	private double rate;
-	private double debit;
+	private Double rate;
+	private Double debit; 
 	
 	/**
 	 * Constructs a new {@code Fax} object by decoding the {@code JSONObject} as a response from the HTTP Request 
@@ -66,17 +67,20 @@ public class Fax extends HoiioResponse {
 	public Fax(JSONObject output) throws HoiioException {
 		response = output.toString();
 		
-		txnRef = output.getString(Params.TXN_REF.toString());
-		tag = output.getString(Params.TAG.toString());
-		src = output.getString(Params.SRC.toString());
-		dest = output.getString(Params.DEST.toString());
-		faxStatus = FaxStatus.fromString(output.getString(Params.FAX_STATUS.toString()));
-		faxPages = output.getInt(Params.FAX_PAGES.toString());
-		faxUrl = output.getString(Params.FAX_URL.toString());
-		date = DateUtil.stringToDateTime(output.getString(Params.DATE.toString()));
-		currency = Currency.fromString(output.getString(Params.CURRENCY.toString()));
-		rate = output.getDouble(Params.RATE.toString());
-		debit = output.getDouble(Params.DEBIT.toString());
+		txnRef = StringUtil.getStringFromJSON(output, Params.TXN_REF.toString());
+		tag = StringUtil.getStringFromJSON(output, Params.TAG.toString());
+		src = StringUtil.getStringFromJSON(output, Params.SRC.toString());
+		dest = StringUtil.getStringFromJSON(output, Params.DEST.toString());
+		faxStatus = FaxStatus.fromString(StringUtil.getStringFromJSON(output, Params.FAX_STATUS.toString()));
+		faxPages = StringUtil.getIntFromJSON(output, Params.FAX_PAGES.toString());
+		if (faxPages == null) {
+			faxPages = 0;
+		}
+		faxUrl = StringUtil.getStringFromJSON(output, Params.FAX_URL.toString());
+		date = DateUtil.stringToDateTime(StringUtil.getStringFromJSON(output, Params.DATE.toString()));
+		currency = Currency.fromString(StringUtil.getStringFromJSON(output, Params.CURRENCY.toString()));
+		rate = StringUtil.getDoubleFromJSON(output, Params.RATE.toString());
+		debit = StringUtil.getDoubleFromJSON(output, Params.DEBIT.toString());
 	}
 
 	/**
